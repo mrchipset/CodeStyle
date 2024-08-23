@@ -84,6 +84,11 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
         if (Helper::options()->plugin('CodeStyle')->showln) {
             echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/highlightjs-line.css" />';
         }
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/fontawesome.min.js" ></script>';
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/brands.min.js" ></script>';
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/solid.min.js" ></script>';
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/regular.min.js" ></script>';
+        echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/copybtn.css" />';
     }
 
     /**
@@ -93,12 +98,15 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
     public static function footer() {
         $jsUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlight.pack.js';
         $lineUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlightjs-line-numbers.min.js';
+        $copyUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/copybtn.js';
+
         $showIn = Helper::options()->plugin('CodeStyle')->showln;
         echo <<<HTML
             <script type="text/javascript" src="{$jsUrl}"></script>
             <script type="text/javascript">
                 hljs.initHighlightingOnLoad();
             </script>
+            <script type="text/javascript" src="{$copyUrl}"></script>
 HTML;
         if ($showIn) {
             echo <<<HTML
@@ -109,5 +117,6 @@ HTML;
 HTML;
 
         }
+
     }
 }
