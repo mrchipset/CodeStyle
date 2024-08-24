@@ -3,12 +3,16 @@
 }
 
 .codestyle-pre-div {
+    position: relative;
     &:hover .codestyle-copy-btn {
         display: block;
     }
 }
 
 .codestyle-copy-btn {
-    float: right;
+    position: absolute !important;
+    right: 10px;
+    top: 10px;
+    z-index: 9999;
     display: none;
 }
