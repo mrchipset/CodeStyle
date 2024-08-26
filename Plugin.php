@@ -3,9 +3,9 @@
  * 代码显示样式风格 可多用户不同风格
  * 
  * @package CodeStyle 
- * @author hongweipeng
- * @version 0.8.0
- * @link https://www.hongweipeng.com
+ * @author hongweipeng, Mr.Chip
+ * @version 0.9.0
+ * @link https://www.xtigerkin.com
  */
 class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      /**
