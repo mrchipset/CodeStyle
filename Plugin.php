@@ -3,9 +3,9 @@
  * 代码显示样式风格 可多用户不同风格
  * 
  * @package CodeStyle 
- * @author hongweipeng
- * @version 0.8.0
- * @link https://www.hongweipeng.com
+ * @author hongweipeng, Mr.Chip
+ * @version 0.9.0
+ * @link https://www.xtigerkin.com
  */
 class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      /**
@@ -84,6 +84,14 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
         if (Helper::options()->plugin('CodeStyle')->showln) {
             echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/highlightjs-line.css" />';
         }
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/fontawesome.min.js" ></script>';
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/brands.min.js" ></script>';
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/solid.min.js" ></script>';
+        echo '<script defer src="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/regular.min.js" ></script>';
+        // echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/copybtn.css" />';
+        echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/highlightjs-copy.min.css" />';
+        echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl. '/CodeStyle/markdown/common.css" />';
+
     }
 
     /**
@@ -91,13 +99,21 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      *@return void
      */
     public static function footer() {
-        $jsUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlight.pack.js';
+        $jsUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlight.min.js';
         $lineUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlightjs-line-numbers.min.js';
+        // $copyUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/copybtn.js';
+        $copyUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlightjs-copy.min.js';
+        $signature  = 'Copied from ' . Helper::options()->siteUrl . ' All copyright reserved.';
         $showIn = Helper::options()->plugin('CodeStyle')->showln;
+
         echo <<<HTML
             <script type="text/javascript" src="{$jsUrl}"></script>
+            <script type="text/javascript" src="{$copyUrl}"></script>
             <script type="text/javascript">
-                hljs.initHighlightingOnLoad();
+                hljs.highlightAll();
+                hljs.addPlugin(new CopyButtonPlugin({
+                    hook: (text, el) => text +"\\n\\n------------\\n{$signature}",
+                }));
             </script>
 HTML;
         if ($showIn) {
@@ -109,5 +125,6 @@ HTML;
 HTML;
 
         }
+
     }
 }
